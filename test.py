@@ -992,7 +992,7 @@ class worker_thread(threading.Thread):
                     else:
                         update_data = ''
                     (job.returncode, standard_out, standard_err, et) = run_job_synchronously(job.shell_command + 
-                        " --xml --tempdir=%s --out=%s %s" % (job.tempdir, job.tmp_file_name, update_data), 
+                        " --xml --tempdir=%s --out=%s %s" % (job.tempdir, os.path.basename(job.tmp_file_name), update_data), 
                         job.cwd, options.valgrind, False)
 
                 job.set_elapsed_time(et)

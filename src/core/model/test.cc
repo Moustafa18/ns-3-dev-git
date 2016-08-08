@@ -22,6 +22,7 @@
 #include "singleton.h"
 #include "system-path.h"
 #include "log.h"
+#include "unistd.h"
 #include <cmath>
 #include <cstring>
 #include <vector>
@@ -441,7 +442,7 @@ TestCase::CreateTempDirFilename (std::string filename)
           names.push_front (current->m_name);
           current = current->m_parent;
         }
-      std::string tempDir = SystemPath::Append (m_runner->GetTempDir (), SystemPath::Join (names.begin (), names.end ()));
+      std::string tempDir = SystemPath::Join (names.begin (), names.end ());
       SystemPath::MakeDirectories (tempDir);
       return SystemPath::Append (tempDir, filename);
     }
@@ -1015,6 +1016,7 @@ TestRunnerImpl::Run (int argc, char *argv[])
   if (m_tempDir == "")
     {
       m_tempDir = SystemPath::MakeTemporaryDirectoryName ();
+      
     }
   if (printTempDir)
     {
@@ -1030,7 +1032,9 @@ TestRunnerImpl::Run (int argc, char *argv[])
       PrintTestTypeList ();
       return 0;
     }
-  
+
+  SystemPath::MakeDirectories (m_tempDir);
+  chdir (m_tempDir.c_str());
 
   std::ostream *os;
   if (out != "")

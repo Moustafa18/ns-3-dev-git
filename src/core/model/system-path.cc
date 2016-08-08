@@ -192,9 +192,9 @@ std::string Append (std::string left, std::string right)
     {
       std::string::size_type lastSep = left.rfind (SYSTEM_PATH_SEP);
       if (lastSep != left.size () - 1)
-	{
-	  break;
-	}
+      {
+        break;
+      }
       left = left.substr (0, left.size () - 1);
     } 
   std::string retval = left + SYSTEM_PATH_SEP + right;
@@ -220,20 +220,20 @@ std::list<std::string> Split (std::string path)
 }
 
 std::string Join (std::list<std::string>::const_iterator begin,
-		  std::list<std::string>::const_iterator end)
+    std::list<std::string>::const_iterator end)
 {
   NS_LOG_FUNCTION (&begin << &end);
   std::string retval = "";
   for (std::list<std::string>::const_iterator i = begin; i != end; i++)
     {
       if (i == begin)
-	{
-	  retval = *i;
-	}
+      {
+        retval = *i;
+      }
       else
-	{
-	  retval = retval + SYSTEM_PATH_SEP + *i;
-	}
+      {
+        retval = retval + SYSTEM_PATH_SEP + *i;
+      }
     }
   return retval;
 }
@@ -287,9 +287,9 @@ MakeTemporaryDirectoryName (void)
     {
       path = getenv ("TEMP");
       if (path == NULL)
-	{
-	  path = const_cast<char *> ("/tmp");
-	}
+      {
+        path = const_cast<char *> ("/tmp");
+      }
     }
 
   //
